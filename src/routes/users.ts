@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { createUser } from "../services/createUser";
 import { createUsers } from "../services/createUsers";
+import { getAllUsers } from "../services/listUsers";
+import { getByEmail } from "../services/getByEmail";
 
 const userRouter = Router();
 
@@ -42,5 +44,35 @@ userRouter.post("/batch", async (req, res) => {
 });
 
 //GET METHOD
+
+userRouter.get("/", async (req, res) => {
+  try {
+    const result = await getAllUsers();
+    return res.status(201).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: "Erro ao obter usuários",
+    });
+  }
+});
+
+userRouter.get("/email", async (req, res) => {
+  try {
+    const result = await getByEmail("william@gmail.com");
+    return res.status(201).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: "Erro ao obter o usuário",
+    });
+  }
+});
 
 export default userRouter;

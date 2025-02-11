@@ -13,8 +13,3 @@ export const createUser = async (data: Prisma.UserCreateInput) => {
     }
   }
 };
-
-export const createUsers = async (data: Prisma.UserCreateManyInput[]) => {
-  const result = await prisma.user.createMany({ data, skipDuplicates: true });
-  return result;
-};
