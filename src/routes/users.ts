@@ -3,6 +3,7 @@ import { createUser } from "../services/createUser";
 import { createUsers } from "../services/createUsers";
 import { getAllUsers } from "../services/listUsers";
 import { getByEmail } from "../services/getByEmail";
+import { updateUser } from "../services/updateUser";
 
 const userRouter = Router();
 
@@ -71,6 +72,25 @@ userRouter.get("/email", async (req, res) => {
     res.status(400).json({
       success: false,
       error: "Erro ao obter o usuário",
+    });
+  }
+});
+
+//PUT METHOD
+
+userRouter.put("/", async (req, res) => {
+  try {
+    const userId = 1;
+    const newName = "mermao";
+    const updatedUser = await updateUser(userId, newName);
+    return res.status(200).json({
+      success: true,
+      data: updateUser,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: "Erro ao atualizar usuário",
     });
   }
 });
