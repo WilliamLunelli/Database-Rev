@@ -24,7 +24,7 @@ model Post {
   subtitle String?
   body     String
   userId   Int
-  author   User    @relation(fields: [userId], references: [id])
+  author   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Role {

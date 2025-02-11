@@ -4,6 +4,7 @@ import { createUsers } from "../services/createUsers";
 import { getAllUsers } from "../services/listUsers";
 import { getByEmail } from "../services/getByEmail";
 import { updateUser } from "../services/updateUser";
+import { deleteUser } from "../services/deleteUser";
 
 const userRouter = Router();
 
@@ -93,6 +94,19 @@ userRouter.put("/", async (req, res) => {
       error: "Erro ao atualizar usuário",
     });
   }
+});
+
+//DELETE METHOD
+
+userRouter.delete("/", async (req, res) => {
+  try {
+    const userId = 26;
+    const deletedUser = await deleteUser(userId);
+    return res.status(200).json({
+      success: true,
+      data: deletedUser,
+    });
+  } catch (error) {}
 });
 
 export default userRouter;

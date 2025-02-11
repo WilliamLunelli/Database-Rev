@@ -3,8 +3,12 @@ import { prisma } from "../libs/prisma";
 
 export const createUser = async (data: Prisma.UserCreateInput) => {
   try {
-    const user = await prisma.user.create({ data });
-    return user;
+    const result = await prisma.user.upsert({
+      where: { email: data.email },
+      update: {},
+      create: data,
+    });
+    return result;
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
