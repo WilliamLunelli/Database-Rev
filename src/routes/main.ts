@@ -1,17 +1,13 @@
 import { Router } from "express";
 import { prisma } from "../libs/prisma";
-import { createUser } from "../services/user";
+import { createUser } from "../services/createUser";
+import { createUsers } from "../services/createUsers";
+import userRouter from "./users";
 
-export const mainRouter = Router();
+export const router = Router();
 
-mainRouter.get("/ping", (req, res) => {
+router.get("/ping", (req, res) => {
   res.json({ pong: true });
 });
 
-mainRouter.post("/user", async (req, res) => {
-  const user = await createUser({
-    name: "william",
-    email: "william01@gmail.com",
-  });
-  res.json({ user });
-});
+router.use("/users", userRouter);
