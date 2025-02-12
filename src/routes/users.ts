@@ -6,7 +6,7 @@ import { getByEmail } from "../services/getByEmail";
 import { updateUser } from "../services/updateUser";
 import { deleteUser } from "../services/deleteUser";
 
-const userRouter = Router();
+export const userRouter = Router();
 
 //POST METHOD ROUTES
 
