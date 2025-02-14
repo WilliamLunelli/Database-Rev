@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createPost } from "../services/createPost";
 import { error } from "console";
+import { updatePost } from "../services/updatePost";
 
 const postRouter = Router();
 
@@ -28,6 +29,18 @@ postRouter.post("/", async (req, res) => {
       error: "Erro ao criar usuários",
     });
   }
+});
+
+//UPDATE METHOD
+
+postRouter.put("/", async (req, res) => {
+  try {
+    const postUpdate = await updatePost(1, {
+      title: "Banana",
+
+      body: "Banana de maua",
+    });
+  } catch (error) {}
 });
 
 export default postRouter;
