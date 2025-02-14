@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createPost } from "../services/createPost";
 import { error } from "console";
 import { updatePost } from "../services/updatePost";
+import { deletedPost } from "../services/deletePost";
 
 const postRouter = Router();
 
@@ -44,6 +45,19 @@ postRouter.put("/", async (req, res) => {
       error: "Erro ao atualizar post",
     });
   }
+});
+
+//DELETE METHOD
+
+postRouter.delete("/", async (req, res) => {
+  try {
+    const postId = parseInt(req.query.id as string);
+    const deletePost = await deletedPost(postId);
+    return res.status(200).json({
+      success: true,
+      data: deletePost,
+    });
+  } catch (error) {}
 });
 
 export default postRouter;
