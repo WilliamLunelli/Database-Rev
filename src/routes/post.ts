@@ -27,12 +27,23 @@ postRouter.post("/", async (req, res) => {
 
 postRouter.put("/", async (req, res) => {
   try {
-    const postUpdate = await updatePost(1, {
-      title: "Banana",
+    const postID = parseInt(req.query.id as string);
+    const newTitle = req.body.title;
+    const newSub = req.body.subtitle;
+    const newBody = req.body.body;
 
-      body: "Banana de maua",
+    const newPost = await updatePost(postID, newTitle, newSub, newBody);
+
+    return res.status(200).json({
+      success: true,
+      data: newPost,
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      error: "Erro ao atualizar post",
+    });
+  }
 });
 
 export default postRouter;
