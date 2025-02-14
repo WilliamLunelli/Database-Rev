@@ -9,15 +9,7 @@ const postRouter = Router();
 
 postRouter.post("/", async (req, res) => {
   try {
-    const post = await createPost({
-      title: "Bananinha de maua",
-      body: "eu gosto de banana da terra",
-      author: {
-        connect: {
-          id: 1,
-        },
-      },
-    });
+    const post = await createPost(req.body);
 
     return res.status(201).json({
       success: true,

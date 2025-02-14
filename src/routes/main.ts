@@ -14,4 +14,4 @@ router.get("/ping", (req, res) => {
 
 router.use("/users", userRouter);
 
-router.use("/post", postRouter);
+router.use("/posts", postRouter);
