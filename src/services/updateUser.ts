@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { prisma } from "../libs/prisma";
 
 export const updateUser = async (id: number, name: string) => {
@@ -9,5 +10,5 @@ export const updateUser = async (id: number, name: string) => {
       name: name,
     },
   });
-  return updateUser;
+  return updatedUser;
 };

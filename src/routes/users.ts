@@ -33,20 +33,20 @@ userRouter.post("/batch", async (req, res) => {
 
 //GET METHOD
 
-// userRouter.get("/", async (req, res) => {
-//   try {
-//     const result = await getAllUsers();
-//     return res.status(201).json({
-//       success: true,
-//       data: result,
-//     });
-//   } catch (error) {
-//     res.status(400).json({
-//       success: false,
-//       error: "Erro ao obter usuários",
-//     });
-//   }
-// });
+userRouter.get("/all", async (req, res) => {
+  try {
+    const result = await getAllUsers();
+    return res.status(201).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: "Erro ao obter usuários",
+    });
+  }
+});
 
 userRouter.get("/", async (req, res) => {
   try {
@@ -77,12 +77,12 @@ userRouter.get("/", async (req, res) => {
 
 userRouter.put("/", async (req, res) => {
   try {
-    const userId = 1;
-    const newName = "mermao";
+    const userId = parseInt(req.query.id as string);
+    const newName = req.body.newName;
     const updatedUser = await updateUser(userId, newName);
     return res.status(200).json({
       success: true,
-      data: updateUser,
+      data: updatedUser,
     });
   } catch (error) {
     return res.status(400).json({
@@ -96,13 +96,18 @@ userRouter.put("/", async (req, res) => {
 
 userRouter.delete("/", async (req, res) => {
   try {
-    const userId = 26;
+    const userId = parseInt(req.query.id as string);
     const deletedUser = await deleteUser(userId);
     return res.status(200).json({
       success: true,
       data: deletedUser,
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: "Erro ao deletar usuário",
+    });
+  }
 });
 
 export default userRouter;
